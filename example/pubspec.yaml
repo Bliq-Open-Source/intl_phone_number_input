@@ -31,10 +31,11 @@ dev_dependencies:
     sdk: flutter
   test: any
 
-  libphonenumber: ^2.0.0
+  libphonenumber_plugin:
+    path: ../../plugin_libphonenumber/libphonenumber_plugin
+
   intl_phone_number_input:
     path: ../
-
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
