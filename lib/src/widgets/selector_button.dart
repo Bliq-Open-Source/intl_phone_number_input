@@ -72,7 +72,9 @@ class SelectorButton extends StatelessWidget {
                     if (selectorConfig.selectorType ==
                         PhoneInputSelectorType.BOTTOM_SHEET) {
                       selected = await showCountrySelectorBottomSheet(
-                          context, countries);
+                        context,
+                        countries,
+                      );
                     } else {
                       selected =
                           await showCountrySelectorDialog(context, countries);
@@ -162,9 +164,9 @@ class SelectorButton extends StatelessWidget {
           borderRadius: BorderRadius.only(
               topLeft: Radius.circular(12), topRight: Radius.circular(12))),
       useSafeArea: selectorConfig.useBottomSheetSafeArea,
-      useRootNavigator: true,
+      useRootNavigator: !selectorConfig.useBackButtonListener,
       builder: (BuildContext context) {
-        return Stack(children: [
+        final bottomSheet = Stack(children: [
           GestureDetector(
             onTap: () => Navigator.pop(context),
           ),
@@ -202,6 +204,19 @@ class SelectorButton extends StatelessWidget {
             ),
           ),
         ]);
+
+        if (selectorConfig.useBackButtonListener) {
+          return BackButtonListener(
+            onBackButtonPressed: () {
+              Navigator.pop(context);
+
+              return Future.value(true);
+            },
+            child: bottomSheet,
+          );
+        } else {
+          return bottomSheet;
+        }
       },
     );
   }

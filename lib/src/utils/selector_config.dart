@@ -63,6 +63,9 @@ class SelectorConfig {
   /// Use safe area for selectorType=BOTTOM_SHEET
   final bool useBottomSheetSafeArea;
 
+  /// Use back button listener for popping selector
+  final bool useBackButtonListener;
+
   const SelectorConfig({
     this.selectorType = PhoneInputSelectorType.DROPDOWN,
     this.showFlags = true,
@@ -78,5 +81,6 @@ class SelectorConfig {
     this.separator,
     this.suffix,
     this.useBottomSheetSafeArea = false,
+    this.useBackButtonListener = false,
   });
 }
