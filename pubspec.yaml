@@ -10,6 +10,7 @@ dependencies:
   flutter:
     sdk: flutter
 
+  dlibphonenumber: ^1.1.17
   libphonenumber_plugin:
     path: ../plugin_libphonenumber/libphonenumber_plugin
 

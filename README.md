@@ -12,55 +12,29 @@ A simple and customizable flutter package for inputting phone number in intl / i
 
 
 ### What's new
-  - Updated libphonenumber and PhoneNumberToCarrierMapper on Android
-  - Removed dependency on libphonenumber
-  - Switch from libphonenumber-iOS to PhoneNumberKit on iOS
-  - Update libphonenumber.js file
-  - Depreciating getNameForNumber in future updates
-  
-  
+- Replace libphonenumber_plugin with dlibphonenumber
+- Updated libphonenumber and PhoneNumberToCarrierMapper on Android
+- Removed dependency on libphonenumber
+- Switch from libphonenumber-iOS to PhoneNumberKit on iOS
+- Update libphonenumber.js file
+- Depreciating getNameForNumber in future updates
+
+
 ### Features
-  - Web support.
-  - Support for RTL languages
-  - Selector mode dropdown, bottom sheet and dialog
-  - As You Type Formatter: formats inputs to its selected international format
-  - Get Region Info with PhoneNumber.getRegionInfoFromPhoneNumber(String phoneNumber, [String isoCode]);
-  - Format PhoneNumber with PhoneNumber.getParsableNumber(String phoneNumber, String isoCode) or `PhoneNumber Reference`.parseNumber()
-  - Custom list of countries e.g. ['NG', 'GH', 'BJ' 'TG', 'CI']
-    
+- Support all Flutter platforms.
+- Support for RTL languages
+- Selector mode dropdown, bottom sheet and dialog
+- As You Type Formatter: formats inputs to its selected international format
+- Get Region Info with PhoneNumber.getRegionInfoFromPhoneNumber(String phoneNumber, [String isoCode]);
+- Format PhoneNumber with PhoneNumber.getParsableNumber(String phoneNumber, String isoCode) or `PhoneNumber Reference`.parseNumber()
+- Custom list of countries e.g. ['NG', 'GH', 'BJ' 'TG', 'CI']
+
 ```dart
     String phoneNumber =  '+234 500 500 5005';
     PhoneNumber number = await PhoneNumber.getRegionInfoFromPhoneNumber(phoneNumber);
     String parsableNumber = number.parseNumber();
     `controller reference`.text = parsableNumber
 ```    
-
-### Web Support
-
-In your app directory, edit `web/index.html` to add the following
-
-```html
-
-<!DOCTYPE html>
-<html>
-    <head>
-        ...
-    </head>
-    <body>
-    
-        ...
-
-        <script src="assets/packages/libphonenumber_plugin/js/libphonenumber.js"></script>
-        <script src="assets/packages/libphonenumber_plugin/js/stringbuffer.js"></script>
-
-        ...
-
-        <script src="main.dart.js" type="application/javascript"></script>
-    </body>
-</html>
-```
-
-Or checkout `/example` folder from [Github](https://github.com/natintosh/intl_phone_number_input/tree/develop/example).
 
 
 ### Note
@@ -186,7 +160,7 @@ If you encounter any problem or the library is missing a feature feel free to op
 ## Co-contributors
 Interested in becoming a co-contributors checkout this link for more info [discussions/201](https://github.com/natintosh/intl_phone_number_input/discussions/201)
 
-# Contributors 
+# Contributors
 <a href="https://github.com/natintosh/intl_phone_number_input/graphs/contributors">
   <img src="https://contributors-img.web.app/image?repo=natintosh/intl_phone_number_input" />
 </a>
@@ -195,7 +169,7 @@ Made with [contributors-img](https://contributors-img.web.app).
 
 # Dependencies
 
-* [libphonenumber](https://pub.dev/packages/libphonenumber)
+* [dlibphonenumber](https://pub.dev/packages/dlibphonenumber)
 * [equatable](https://pub.dev/packages/equatable)
 
 # Credits
