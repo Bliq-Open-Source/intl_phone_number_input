@@ -31,8 +31,8 @@ dev_dependencies:
     sdk: flutter
   test: any
 
-  libphonenumber_plugin:
-    path: ../../plugin_libphonenumber/libphonenumber_plugin
+  dlibphonenumber:
+    path: ../../dlibphonenumber
 
   intl_phone_number_input:
     path: ../
