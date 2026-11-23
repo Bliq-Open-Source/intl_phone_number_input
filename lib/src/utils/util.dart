@@ -29,19 +29,44 @@ class Utils {
     required String value,
   }) {
     if (value.isNotEmpty) {
-      return countries
-          .where(
-            (Country country) =>
-                country.alpha3Code!
-                    .toLowerCase()
-                    .startsWith(value.toLowerCase()) ||
-                country.name!.toLowerCase().contains(value.toLowerCase()) ||
-                Utils.getCountryName(country, locale)!
-                    .toLowerCase()
-                    .contains(value.toLowerCase()) ||
-                country.dialCode!.contains(value.toLowerCase()),
-          )
-          .toList();
+      final filteredCountries = countries.where(
+        (Country country) {
+          return country.alpha3Code!
+                  .toLowerCase()
+                  .startsWith(value.toLowerCase()) ||
+              Utils.getCountryName(country, locale)!
+                  .toLowerCase()
+                  .contains(value.toLowerCase()) ||
+              country.dialCode!.contains(value.toLowerCase());
+        },
+      ).toList();
+
+      if (filteredCountries.isEmpty) return filteredCountries;
+
+      final matchDialCode = filteredCountries[0].dialCode!.contains(value);
+      final matchLocaleName =
+          Utils.getCountryName(filteredCountries[0], locale)!
+              .toLowerCase()
+              .contains(value);
+
+      if (!matchDialCode && !matchLocaleName) return filteredCountries;
+
+      return filteredCountries
+        ..sort((a, b) {
+          final compareDialCodeLength =
+              a.dialCode!.length.compareTo(b.dialCode!.length);
+          final compareLocalNameLength = Utils.getCountryName(a, locale)!
+              .toLowerCase()
+              .length
+              .compareTo(Utils.getCountryName(b, locale)!.toLowerCase().length);
+
+          if (matchDialCode && compareDialCodeLength != 0) {
+            return compareDialCodeLength;
+          } else if (matchLocaleName && compareLocalNameLength != 0) {
+            return compareLocalNameLength;
+          }
+          return 0;
+        });
     }
 
     return countries;

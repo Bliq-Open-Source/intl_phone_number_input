@@ -24,8 +24,8 @@
 
 # Flutter/Dart/Pub related
 **/doc/api/
+**/Flutter/ephemeral/
 .dart_tool/
-.flutter-plugins
 .packages
 pubspec.lock
 .pub-cache/
@@ -73,3 +73,5 @@ build/
 !**/ios/**/default.pbxuser
 !**/ios/**/default.perspectivev3
 !/packages/flutter_tools/test/data/dart_dependencies_test/**/.packages
+
+.metadata

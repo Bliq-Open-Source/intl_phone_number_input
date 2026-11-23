@@ -72,7 +72,9 @@ class SelectorButton extends StatelessWidget {
                     if (selectorConfig.selectorType ==
                         PhoneInputSelectorType.BOTTOM_SHEET) {
                       selected = await showCountrySelectorBottomSheet(
-                          context, countries);
+                        context,
+                        countries,
+                      );
                     } else {
                       selected =
                           await showCountrySelectorDialog(context, countries);
@@ -83,18 +85,27 @@ class SelectorButton extends StatelessWidget {
                     }
                   }
                 : null,
-            child: Padding(
-              padding: const EdgeInsets.only(right: 8.0),
-              child: Item(
-                country: country,
-                showFlag: selectorConfig.showFlags,
-                useEmoji: selectorConfig.useEmoji,
-                leadingPadding: selectorConfig.leadingPadding,
-                trailingSpace: selectorConfig.trailingSpace,
-                textStyle: selectorTextStyle,
-              ),
-            ),
+            child: _buttonContent(context),
           );
+  }
+
+  Widget _buttonContent(BuildContext context) {
+    return Row(
+      children: [
+        Padding(
+          padding: const EdgeInsets.only(right: 8),
+          child: Item(
+            country: country,
+            showFlag: selectorConfig.showFlags,
+            useEmoji: selectorConfig.useEmoji,
+            leadingPadding: selectorConfig.leadingPadding,
+            trailingSpace: selectorConfig.trailingSpace,
+            textStyle: selectorTextStyle,
+          ),
+        ),
+        if (selectorConfig.suffix != null) selectorConfig.suffix!,
+      ],
+    );
   }
 
   /// Converts the list [countries] to `DropdownMenuItem`
@@ -152,8 +163,10 @@ class SelectorButton extends StatelessWidget {
       shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.only(
               topLeft: Radius.circular(12), topRight: Radius.circular(12))),
+      useSafeArea: selectorConfig.useBottomSheetSafeArea,
+      useRootNavigator: !selectorConfig.useBackButtonListener,
       builder: (BuildContext context) {
-        return Stack(children: [
+        final bottomSheet = Stack(children: [
           GestureDetector(
             onTap: () => Navigator.pop(context),
           ),
@@ -161,17 +174,19 @@ class SelectorButton extends StatelessWidget {
             padding: EdgeInsets.only(
                 bottom: MediaQuery.of(context).viewInsets.bottom),
             child: DraggableScrollableSheet(
+              minChildSize: selectorConfig.minSheetSize,
+              maxChildSize: selectorConfig.maxSheetSize,
+              initialChildSize: selectorConfig.initialSheetSize,
               builder: (BuildContext context, ScrollController controller) {
                 return Directionality(
                   textDirection: Directionality.of(inheritedContext),
-                  child: Container(
-                    decoration: ShapeDecoration(
-                      color: Theme.of(context).canvasColor,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(12),
-                          topRight: Radius.circular(12),
-                        ),
+                  child: Material(
+                    clipBehavior: Clip.hardEdge,
+                    color: Theme.of(context).canvasColor,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(12),
+                        topRight: Radius.circular(12),
                       ),
                     ),
                     child: CountrySearchListWidget(
@@ -189,6 +204,19 @@ class SelectorButton extends StatelessWidget {
             ),
           ),
         ]);
+
+        if (selectorConfig.useBackButtonListener) {
+          return BackButtonListener(
+            onBackButtonPressed: () {
+              Navigator.pop(context);
+
+              return Future.value(true);
+            },
+            child: bottomSheet,
+          );
+        } else {
+          return bottomSheet;
+        }
       },
     );
   }
