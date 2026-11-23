@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:intl_phone_number_input/src/models/country_model.dart';
 import 'package:intl_phone_number_input/src/utils/util.dart';
 
@@ -35,17 +35,9 @@ class Item extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
           SizedBox(width: leadingPadding),
-          _Flag(
-            country: country,
-            showFlag: showFlag,
-            useEmoji: useEmoji,
-          ),
+          _Flag(country: country, showFlag: showFlag, useEmoji: useEmoji),
           SizedBox(width: 12.0),
-          Text(
-            '$dialCode',
-            textDirection: TextDirection.ltr,
-            style: textStyle,
-          ),
+          Text('$dialCode', textDirection: TextDirection.ltr, style: textStyle),
         ],
       ),
     );
@@ -58,7 +50,7 @@ class _Flag extends StatelessWidget {
   final bool? useEmoji;
 
   const _Flag({Key? key, this.country, this.showFlag, this.useEmoji})
-      : super(key: key);
+    : super(key: key);
 
   @override
   Widget build(BuildContext context) {
