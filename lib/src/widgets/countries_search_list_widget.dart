@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:intl_phone_number_input/src/models/country_model.dart';
 import 'package:intl_phone_number_input/src/utils/test/test_helper.dart';
 import 'package:intl_phone_number_input/src/utils/util.dart';
@@ -129,8 +129,10 @@ class DirectionalCountryListTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListTile(
       visualDensity: VisualDensity(horizontal: 0, vertical: -4),
-      contentPadding:
-          EdgeInsetsDirectional.symmetric(horizontal: 12, vertical: 4),
+      contentPadding: EdgeInsetsDirectional.symmetric(
+        horizontal: 12,
+        vertical: 4,
+      ),
       key: Key(TestHelper.countryItemKeyValue(country.alpha2Code)),
       leading: (showFlags ? _Flag(country: country, useEmoji: useEmoji) : null),
       title: Align(
@@ -170,13 +172,13 @@ class _Flag extends StatelessWidget {
                     style: Theme.of(context).textTheme.headlineSmall,
                   )
                 : country?.flagUri != null
-                    ? CircleAvatar(
-                        backgroundImage: AssetImage(
-                          country!.flagUri,
-                          package: 'intl_phone_number_input',
-                        ),
-                      )
-                    : SizedBox.shrink(),
+                ? CircleAvatar(
+                    backgroundImage: AssetImage(
+                      country!.flagUri,
+                      package: 'intl_phone_number_input',
+                    ),
+                  )
+                : SizedBox.shrink(),
           )
         : SizedBox.shrink();
   }
